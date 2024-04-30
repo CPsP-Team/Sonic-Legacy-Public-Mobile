@@ -23,48 +23,20 @@ class PsychVideoSprite extends FlxVideoSprite
         super();
         heldVideos.push(this);
 
+	autoPause = false;
+
         this.destroyOnUse = destroyOnUse;
         if (destroyOnUse) bitmap.onEndReached.add(() -> destroy());
     }
 
     public override function load(location:String, ?options:Array<String>):Bool
     {
-        var b:Bool = super.load(location,options);
+        var b:Bool = super.load(location, options);
         if (!b) return b;
 
         _heldVideoPath = location;
 
-        if (FlxG.autoPause) 
-        {
-            //we dont want these signals due to us using our own setup
-            if (FlxG.signals.focusGained.has(resume)) FlxG.signals.focusGained.remove(resume);
-            if (FlxG.signals.focusLost.has(pause)) FlxG.signals.focusLost.remove(pause);
-
-            if (!FlxG.signals.focusGained.has(bitmap.resume)) FlxG.signals.focusGained.add(bitmap.resume);
-            if (!FlxG.signals.focusLost.has(bitmap.pause)) FlxG.signals.focusLost.add(bitmap.pause);
-        }
-        
         return b;
-    }
-
-    public override function pause() {
-
-        super.pause();
-        if (FlxG.autoPause) 
-        {
-            if (FlxG.signals.focusGained.has(bitmap.resume)) FlxG.signals.focusGained.remove(bitmap.resume);
-            if (FlxG.signals.focusLost.has(bitmap.pause)) FlxG.signals.focusLost.remove(bitmap.pause);
-        }
-    }
-
-    public override function resume() {
-
-        super.resume();
-        if (FlxG.autoPause) 
-        {
-            if (!FlxG.signals.focusGained.has(bitmap.resume)) FlxG.signals.focusGained.add(bitmap.resume);
-            if (!FlxG.signals.focusLost.has(bitmap.pause)) FlxG.signals.focusLost.add(bitmap.pause);
-        }
     }
 
     //maybe temp?
