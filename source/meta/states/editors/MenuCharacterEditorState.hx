@@ -249,10 +249,10 @@ class MenuCharacterEditorState extends MusicBeatState
 		confirmInputText.visible = (curTypeSelected == 1);
 		updateOffset();
 		
-
+    #if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
-
+		#end
 	}
 
 	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>) {
