@@ -4,6 +4,7 @@ package meta.backend;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 import meta.states.*;
+#end
 
 #if LUA_ALLOWED
 import llua.Lua;
@@ -14,6 +15,7 @@ using StringTools;
 
 class DiscordClient
 {
+  #if DISCORD_ALLOWED
 	public static var isInitialized:Bool = false;
 	public function new()
 	{
@@ -101,6 +103,7 @@ class DiscordClient
 		});
 	}
 	#end
+	#end
 }
 
 
@@ -113,4 +116,3 @@ class DiscordHandler {
 		
 	}
 }
-#end
