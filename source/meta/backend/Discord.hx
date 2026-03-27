@@ -1,5 +1,6 @@
 package meta.backend;
 
+#if DISCORD_ALLOWED
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 import meta.states.*;
@@ -112,3 +113,4 @@ class DiscordHandler {
 		
 	}
 }
+#end
