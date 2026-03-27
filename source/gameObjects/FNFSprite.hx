@@ -183,8 +183,7 @@ class FNFSprite extends FlxSprite
 			}
 
 			rawJson = Assets.getText(path);
-		}
-
 		return cast Json.parse(rawJson);
+		}
 	}
 }
