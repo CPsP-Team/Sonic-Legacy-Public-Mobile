@@ -50,7 +50,7 @@ class FunkinHScript extends FunkinScript
 		catch (e:haxe.Exception)
 		{
 			var errMsg = 'Error parsing hscript! '#if hscriptPos + '$name:' + parser.line + ', ' #end + e.message;
-			#if desktop
+			#if (desktop && mobile)
 			Application.current.window.alert(errMsg, "Error on haxe script!");
 			#end
 			trace(errMsg);
@@ -258,8 +258,8 @@ class FunkinHScript extends FunkinScript
 
 			try{				
 				runtime = new FlxRuntimeShader(
-					fragFile==null ? null : Paths.getContent(Paths.exists(Paths.modsShaderFragment(fragFile)) ? Paths.modsShaderFragment(fragFile) : Paths.shaderFragment(fragFile)), 
-					vertFile==null ? null : Paths.getContent(Paths.exists(Paths.modsShaderVertex(vertFile)) ? Paths.modsShaderVertex(vertFile) : Paths.shaderVertex(vertFile))
+					fragFile==null ? null : Paths.getContent(Paths.exists(Paths.shaderFragment(fragFile)), 
+					vertFile==null ? null : Paths.getContent(Paths.exists(Paths.shaderVertex(vertFile))
 				);
 			}catch(e:Dynamic){
 				trace("Shader compilation error:" + e.message);
@@ -350,7 +350,7 @@ class FunkinHScript extends FunkinScript
 
 		set("ScriptState", HScriptState);
 		set("newScriptedState", function(stateName:String){
-			return new HScriptState(fromFile(Paths.modFolders('states/$stateName.hscript')));
+			return new HScriptState(fromFile(Paths.getPreloadPath('states/$stateName.hscript')));
 		});
 		
 		set("add", PlayState.instance.add);
@@ -476,7 +476,7 @@ class HScriptSubstate extends meta.states.substate.MusicBeatSubstate
 
 		for (filePath in [#if MODS_ALLOWED Paths.modFolders(fileName), Paths.mods(fileName), #end Paths.getPreloadPath(fileName)])
 		{
-			if (!FileSystem.exists(filePath)) continue;
+			if (!Assets.exists(filePath)) continue;
 
 			// some shortcuts
 			var variables = new Map<String, Dynamic>();
