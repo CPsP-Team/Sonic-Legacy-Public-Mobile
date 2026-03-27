@@ -204,7 +204,7 @@ class Paths
 
 	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
 	{
-		#if (sys && MODS_ALLOWED)
+		#if MODS_ALLOWED
 		if (FileSystem.exists(asset)) {
 			return true;
 		}
@@ -217,7 +217,7 @@ class Paths
 		
 	}
 	inline static public function getContent(asset:String):Null<String>{
-		#if (sys && MODS_ALLOWED)
+		#if MODS_ALLOWED
 		if (FileSystem.exists(asset))
 			return File.getContent(asset);
 		#end

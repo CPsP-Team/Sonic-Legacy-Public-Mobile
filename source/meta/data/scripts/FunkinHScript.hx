@@ -17,12 +17,6 @@ import meta.data.*;
 import meta.states.*;
 import meta.states.editors.*;
 import gameObjects.*;
-#if sys
-import flash.media.Sound;
-import sys.FileSystem;
-import sys.io.File;
-#end
-
 using StringTools;
 
 class FunkinHScript extends FunkinScript
@@ -75,7 +69,7 @@ class FunkinHScript extends FunkinScript
 	{
 		if (name == null)
 			name = file;
-		return parseString(File.getContent(file), name);
+		return parseString(Paths.getContent(file), name);
 	}
 
 	var interpreter:Interp = new Interp();
