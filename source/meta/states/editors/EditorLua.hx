@@ -27,7 +27,7 @@ import Type.ValueType;
 import Controls;
 import DialogueBoxPsych;
 
-#if desktop
+#if DISCORD_ALLOWED
 import Discord;
 #end
 
@@ -180,6 +180,7 @@ class EditorLua {
 			}
 		});
 
+		#if DISCORD_ALLOWED
 		Discord.DiscordClient.addLuaCallbacks(lua);
 
 		call('onCreate', []);
