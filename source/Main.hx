@@ -28,7 +28,9 @@ class Main extends Sprite
 	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPSCounter;
+	#if debug
 	public static var compilationInformation:TextField;
+	#end
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -76,6 +78,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+		#if !mobile
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -87,6 +90,7 @@ class Main extends Sprite
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
+		#end
 
 		// //#if !debug
 		// initialState = TitleState;
@@ -113,7 +117,7 @@ class Main extends Sprite
 		FlxG.mouse.visible = false;
 		#end
 
-    #if debug
+       #if debug
 		var compTime = MacroData.getDate();
 		var time = Date.now().toString();
 		var usrName = #if windows Sys.environment()["USERNAME"]; #elseif (linux || macos) return Sys.environment()["USER"]; #end

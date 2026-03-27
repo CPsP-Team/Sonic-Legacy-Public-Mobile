@@ -14,7 +14,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.utils.Assets;
 import flixel.FlxSprite;
-#if sys
+#if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 #end
@@ -283,7 +283,7 @@ class Paths
 		return voices;
 	}
 
-  #if MODS_ALLOWED
+    #if MODS_ALLOWED
 	inline static public function modsShaderFragment(key:String, ?library:String)
 		return modFolders('shaders/'+key+'.frag');
 	
@@ -307,11 +307,9 @@ class Paths
 
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
-		#if sys
 		#if MODS_ALLOWED
 		if (!ignoreMods && FileSystem.exists(modFolders(key)))
 			return File.getContent(modFolders(key));
-		#end
 
 		if (FileSystem.exists(getPreloadPath(key)))
 			return File.getContent(getPreloadPath(key));
