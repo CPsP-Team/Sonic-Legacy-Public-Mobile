@@ -45,6 +45,7 @@ jobs:
           haxelib install hscript 2.5.0
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib install hxcpp-debug-server
+          haxelib run lime rebuild hxcpp --quiet
           haxelib list
 
       - name: Configure Android
