@@ -2929,7 +2929,8 @@ class ChartingState extends MusicBeatState
 		if(_song.arrowSkin != ''){
 			for(ext in FunkinHScript.hscriptExts){
 				if(noteskinScript == null){
-					if(OpenFlAssets.exists(Paths.noteskin('${_song.arrowSkin}.$ext'))) noteskinScript = FunkinHScript.fromFile(Paths.noteskin('${_song.arrowSkin}.$ext'));
+					if(FileSystem.exists(Paths.noteskin('${_song.arrowSkin}.$ext'))){
+						noteskinScript = FunkinHScript.fromFile(Paths.noteskin('${_song.arrowSkin}.$ext'));
 					}else{
 						noteskinScript = null;
 					}						
