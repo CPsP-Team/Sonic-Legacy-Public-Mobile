@@ -25,7 +25,7 @@ jobs:
           java-version: '18'
 
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+        uses: krdlab/setup-haxe@v2
         with:
           haxe-version: 4.3.7
 
@@ -72,5 +72,3 @@ jobs:
           name: FNF RodentRap Android
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
-
-          
