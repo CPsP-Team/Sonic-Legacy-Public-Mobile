@@ -130,7 +130,7 @@ class Stage extends FlxTypedGroup<FlxBasic>
 				break;
 			var baseFile = '$baseScriptFile.$ext';
 
-			var files = [Paths.modFolders(baseFile), Paths.getPreloadPath(baseFile)];
+			var files = [Paths.getPreloadPath(baseFile)];
 			for (file in files)
 			{
 				trace(file);
