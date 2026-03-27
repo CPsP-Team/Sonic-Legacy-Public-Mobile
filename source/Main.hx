@@ -113,6 +113,7 @@ class Main extends Sprite
 		FlxG.mouse.visible = false;
 		#end
 
+        #if !debug
 		var compTime = MacroData.getDate();
 		var time = Date.now().toString();
 		var usrName = #if windows Sys.environment()["USERNAME"]; #elseif (linux || macos) return Sys.environment()["USER"]; #end
@@ -128,7 +129,6 @@ class Main extends Sprite
 		compilationInformation.mouseEnabled = false;
 		compilationInformation.alpha = 0.675;
 		
-		#if !debug
 		//addChild(compilationInformation);
 		#end
 	}

@@ -468,8 +468,9 @@ class DialogueCharacterEditorState extends MusicBeatState
 		curAnim = 0;
 		animText.text = 'Animation: ' + character.jsonFile.animations[curAnim].anim + ' (' + (curAnim + 1) +' / ' + character.jsonFile.animations.length + ') - Press W or S to scroll';
 
-
+        #if DISCORD_ALLOWED
 		DiscordHandler.changePresence("Dialogue Character Editor", "Editting: " + character.jsonFile.image);
+		#end
 
 	}
 

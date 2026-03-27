@@ -1865,11 +1865,11 @@ class FunkinLua extends FunkinScript
 			}
 			gonnaClose = true;
 		});
-
+        #if DISCORD_ALLOWED
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 			DiscordHandler.changePresence(details, state, smallImageKey, hasStartTimestamp, endTimestamp);
 		});
-
+        #end
 
 		// LUA TEXTS
 		Lua_helper.add_callback(lua, "makeLuaText", function(tag:String, text:String, width:Int, x:Float, y:Float) {

@@ -27,7 +27,9 @@ class AchievementsMenuState extends MusicBeatState
 	private var descText:FlxText;
 
 	override function create() {
+		#if DISCORD_ALLOWED
 		DiscordHandler.changePresence("Achievements Menu", null);
+		#end
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));

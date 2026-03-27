@@ -364,9 +364,10 @@ class WeekEditorState extends MusicBeatState
 		}
 		recalculateStuffPosition();
 
-
+        #if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("Week Editor", "Editting: " + weekFileName);
+		#end
 
 	}
 	

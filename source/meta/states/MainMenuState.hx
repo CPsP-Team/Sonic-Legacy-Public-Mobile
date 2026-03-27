@@ -55,8 +55,10 @@ class MainMenuState extends MusicBeatState
 		
 		WeekData.loadTheFirstEnabledMod();
 
+        #if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("In the Menus", null);
+        #end
 
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 

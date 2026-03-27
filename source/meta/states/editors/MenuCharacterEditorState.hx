@@ -48,8 +48,10 @@ class MenuCharacterEditorState extends MusicBeatState
 			flipX: false
 		};
 
+        #if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
+		#end
 
 
 		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();

@@ -1139,10 +1139,12 @@ class CharacterEditorState extends MusicBeatState
 		healthBarBG.color = FlxColor.fromRGB(char.healthColorArray[0], char.healthColorArray[1], char.healthColorArray[2]);
 	}
 
+    #if DISCORD_ALLOWED
 	function updatePresence() {
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("Character Editor", "Character: " + daAnim, leHealthIcon.getCharacter());
 	}
+	#end
 
 	override function update(elapsed:Float)
 	{
