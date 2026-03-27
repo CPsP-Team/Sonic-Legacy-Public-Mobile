@@ -15,9 +15,6 @@ import openfl.utils.Assets;
 import meta.data.scripts.*;
 import gameObjects.shader.*;
 import math.Vector3;
-#if sys
-import sys.FileSystem;
-#end
 using StringTools;
 
 typedef EventNote = {
