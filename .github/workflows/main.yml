@@ -37,7 +37,7 @@ jobs:
           haxelib install openfl 9.2.2
           haxelib install flixel 5.2.2
           haxelib install flixel-tools
-          haxelib install flixel-ui
+          haxelib install flixel-ui 2.6.1
           haxelib install flixel-addons 2.10.0
           haxelib install tjson
           haxelib install hxjsonast
@@ -60,6 +60,7 @@ jobs:
           haxelib set openfl 9.2.2
           haxelib set lime 8.0.2
           haxelib set hxvlc 1.2.0
+          haxelib set flixel-ui 2.6.1
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
