@@ -152,6 +152,11 @@
 	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
+		
+	<section if="android">
+		<config:android permission="android.permission.VIBRATE" />
+		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
+    </section>
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
