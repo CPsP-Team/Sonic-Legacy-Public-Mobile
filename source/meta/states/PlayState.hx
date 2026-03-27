@@ -509,11 +509,8 @@ class PlayState extends MusicBeatState
 		}
 		if(SONG.arrowSkin != ''){
 			for(ext in FunkinHScript.hscriptExts){
-				if(FileSystem.exists(Paths.noteskin('${SONG.arrowSkin}.$ext'))){
+				if(OpenFlAssets.exists(Paths.noteskin('${SONG.arrowSkin}.$ext'))){
 					noteskinScript = FunkinHScript.fromFile(Paths.noteskin('${SONG.arrowSkin}.$ext'));
-				}else if(FileSystem.exists(Paths.modsNoteskin('${SONG.arrowSkin}.$ext'))){
-					//Noteskin doesn't exist in assets, trying mods folder
-					noteskinScript = FunkinHScript.fromFile(Paths.modsNoteskin('${SONG.arrowSkin}.$ext'));
 				}else{
 					//Noteskin doesn't exist in assets or mods folder, returning null
 					trace('noteskin script doesnt exist: ${Paths.noteskin('${SONG.arrowSkin}.$ext')}');
@@ -1121,69 +1118,6 @@ class PlayState extends MusicBeatState
 		modManager = new ModManager(this);
 		hscriptSetDefault("modManager", modManager);
 
-		/*
-		#if LUA_ALLOWED
-		for (notetype in noteTypeMap.keys())
-		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-				var lua:FunkinLua = new FunkinLua(luaToLoad);
-				luaArray.push(lua);
-				funkyScripts.push(lua);
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-				if(FileSystem.exists(luaToLoad))
-				{
-					var lua:FunkinLua = new FunkinLua(luaToLoad);
-					luaArray.push(lua);
-					funkyScripts.push(lua);
-				}
-			}
-			#elseif sys
-			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-			if(OpenFlAssets.exists(luaToLoad))
-			{
-				var lua:FunkinLua = new FunkinLua(luaToLoad);
-				luaArray.push(lua);
-				funkyScripts.push(lua);
-			}
-			#end
-		}
-		for (event in eventPushedMap.keys())
-		{
-			#if MODS_ALLOWED
-			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if(FileSystem.exists(luaToLoad))
-			{
-					var lua:FunkinLua = new FunkinLua(luaToLoad);
-					luaArray.push(lua);
-					funkyScripts.push(lua);
-			}
-			else
-			{
-				luaToLoad = Paths.getPreloadPath('custom_events/' + event + '.lua');
-				if(FileSystem.exists(luaToLoad))
-				{
-					var lua:FunkinLua = new FunkinLua(luaToLoad);
-					luaArray.push(lua);
-					funkyScripts.push(lua);
-				}
-			}
-			#elseif sys
-			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
-			if(OpenFlAssets.exists(luaToLoad))
-			{
-				var lua:FunkinLua = new FunkinLua(luaToLoad);
-				luaArray.push(lua);
-				funkyScripts.push(lua);
-			}
-			#end
-		}
-		#end*/
 		noteTypeMap.clear();
 		noteTypeMap = null;
 		eventPushedMap.clear();
@@ -1350,7 +1284,9 @@ class PlayState extends MusicBeatState
 		}
 
 		// Updating Discord Rich Presence.
+		#if DISCORD_ALLOWED
 		DiscordHandler.changePresence(detailsText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
+		#end
 
 		if(!ClientPrefs.data.controllerMode)
 		{
@@ -1522,7 +1458,7 @@ class PlayState extends MusicBeatState
 			doPush = true;
 		} else {
 			scriptFile = Paths.getPreloadPath(baseFile);
-			if(FileSystem.exists(scriptFile + '.lua') || FileSystem.exists(scriptFile + '.hscript')) {
+			if(FileSystem.exists(scriptFile + '.lua') || OpenFlAssets.exists(scriptFile + '.hscript')) {
 				doPush = true;
 			}
 		}
@@ -1985,7 +1921,9 @@ class PlayState extends MusicBeatState
 
 
 		// Updating Discord Rich Presence (with Time Left)
+		#if DISCORD_ALLOWED
 		DiscordHandler.changePresence(detailsText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter(), true, songLength);
+		#end
 	
 		setOnScripts('songLength', songLength);
 		setOnScripts('barSongLength', barSongLength);
@@ -2026,7 +1964,7 @@ class PlayState extends MusicBeatState
 		var events:Array<EventNote> = [];
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file) || OpenFlAssets.exists(file)) {
+		if (OpenFlAssets.exists(OpenFlAssets.exists(file)) {
 		//if () {
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
 			for (event in eventsData) //Event Notes
@@ -2109,51 +2047,6 @@ class PlayState extends MusicBeatState
 
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
-		/*var songName:String = Paths.formatToSongPath(SONG.song);
-		var file:String = Paths.json(songName + '/events');
-		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
-		#else
-		if (OpenFlAssets.exists(file)) {
-		#end
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
-			for (event in eventsData) //Event Notes
-			{
-				for (i in 0...event[1].length)
-				{
-					var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
-					var subEvent:EventNote = {
-						strumTime: newEventNote[0] + ClientPrefs.noteOffset,
-						event: newEventNote[1],
-						value1: newEventNote[2],
-						value2: newEventNote[3]
-					};
-					subEvent.strumTime -= eventNoteEarlyTrigger(subEvent);
-					if(!shouldPush(subEvent))continue;
-					eventNotes.push(subEvent);
-					eventPushed(subEvent);
-				}
-			}
-		}
-
-		for (event in songData.events) //Event Notes
-		{
-			for (i in 0...event[1].length)
-			{
-				var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
-				var subEvent:EventNote = {
-					strumTime: newEventNote[0] + ClientPrefs.noteOffset,
-					event: newEventNote[1],
-					value1: newEventNote[2],
-					value2: newEventNote[3]
-				};
-				subEvent.strumTime -= eventNoteEarlyTrigger(subEvent);
-				if(!shouldPush(subEvent))continue;
-				eventNotes.push(subEvent);
-				eventPushed(subEvent);
-			}
-		}*/
-
 		// loads note types
 		for (section in noteData)
 		{
@@ -2184,7 +2077,7 @@ class PlayState extends MusicBeatState
 				var files = [#if MODS_ALLOWED Paths.modFolders(baseFile), #end Paths.getPreloadPath(baseFile)];
 				for (file in files)
 				{
-					if (FileSystem.exists(file))
+					if (OpenFlAssets.exists(file))
 					{
 						if (ext == 'lua')
 						{
@@ -2233,7 +2126,7 @@ class PlayState extends MusicBeatState
 				var files = [#if MODS_ALLOWED Paths.modFolders(baseFile), #end Paths.getPreloadPath(baseFile)];
 				for (file in files)
 				{
-					if (FileSystem.exists(file))
+					if (OpenFlAssets.exists(file))
 					{
 						if (ext == 'lua')
 						{
@@ -2624,7 +2517,7 @@ class PlayState extends MusicBeatState
 
 			PsychVideoSprite.globalResume();
 
-
+      #if DISCORD_ALLOWED
 			if (startTimer != null && startTimer.finished)
 			{
 				DiscordHandler.changePresence(detailsText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.data.noteOffset);
@@ -2633,6 +2526,7 @@ class PlayState extends MusicBeatState
 			{
 				DiscordHandler.changePresence(detailsText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
 			}
+			#end
 
 		}
 		callOnHScripts('onSubstateClose', []);
@@ -2640,9 +2534,9 @@ class PlayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+    #if DISCORD_ALLOWED
 	override public function onFocus():Void
 	{
-
 		if (health > 0 && !paused)
 		{
 			if (Conductor.songPosition > 0.0)
@@ -2666,10 +2560,9 @@ class PlayState extends MusicBeatState
 		{
 			DiscordHandler.changePresence(detailsPausedText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
 		}
-
-
 		super.onFocusLost();
 	}
+	#end
 
 	function resyncVocals():Void
 	{
@@ -2775,9 +2668,9 @@ class PlayState extends MusicBeatState
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				//}
 
-
+        #if DISCORD_ALLOWED
 				DiscordHandler.changePresence(detailsPausedText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
-
+        #end
 			}
 		}
 
@@ -3162,8 +3055,9 @@ class PlayState extends MusicBeatState
 		MusicBeatState.switchState(new ChartingState());
 		chartingMode = true;
 
-
+    #if DISCORD_ALLOWED
 		DiscordHandler.changePresence("Chart Editor", null, null, true);
+		#end
 
 	}
 
@@ -3243,7 +3137,9 @@ class PlayState extends MusicBeatState
 
 
 				// Game Over doesn't get his own variable because it's only used here
+				#if DISCORD_ALLOWED
 				DiscordHandler.changePresence("Game Over - " + detailsText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
+				#end
 
 				isDead = true;
 				return true;
