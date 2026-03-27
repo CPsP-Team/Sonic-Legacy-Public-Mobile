@@ -207,7 +207,7 @@ void main()
 	var topPrefix:String = "";
 
 	public function new() {
-		topPrefix = "#version 120\n\n";
+		topPrefix = "#version 100\n\n";
 		__glSourceDirty = true;
 
 		super();
