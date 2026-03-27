@@ -26,8 +26,10 @@ class InitState extends FlxState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+    #if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		WeekData.loadTheFirstEnabledMod();
+		#end
 
 		FlxG.game.focusLostFramerate = 60;
 		FlxG.sound.muteKeys = muteKeys;
@@ -92,8 +94,5 @@ class InitState extends FlxState
 			FlxTransitionableState.defaultTransOut = SwipeTransitionSubstate;
 			MusicBeatState.switchState(new TitleState());
         }
-
-
-
     }
 }
