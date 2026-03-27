@@ -21,9 +21,8 @@ import hxvlc.openfl.*;
 #if DISCORD_ALLOWED
 import meta.backend.Discord;
 import meta.backend.Discord.DiscordClient;
-#end
-
 import meta.backend.Discord.DiscordHandler;
+#end
 
 import meta.data.Paths;
 import meta.data.ClientPrefs;
