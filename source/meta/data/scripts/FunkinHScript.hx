@@ -259,8 +259,7 @@ class FunkinHScript extends FunkinScript
 			try{				
 				runtime = new FlxRuntimeShader(
 					fragFile==null ? null : Paths.getContent(Paths.exists(Paths.shaderFragment(fragFile)), 
-					vertFile==null ? null : Paths.getContent(Paths.exists(Paths.shaderVertex(vertFile))
-				);
+					vertFile==null ? null : Paths.getContent(Paths.exists(Paths.shaderVertex(vertFile)));
 			}catch(e:Dynamic){
 				trace("Shader compilation error:" + e.message);
 			}
