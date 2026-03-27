@@ -94,9 +94,12 @@ class Main extends Sprite
 
 
 		ClientPrefs.loadDefaultKeys();
+		#if desktop
 		addChild(new FNFGame(gameWidth, gameHeight, initialState, #if(flixel < "5.0.0")zoom,#end framerate, framerate, skipSplash, startFullscreen));
+		#else
+		addChild(new FNFGame(1280, 720, InitState, 60, 60, false, false));
+		#end
 
-		#if !mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -104,7 +107,6 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
-		#end
 
 		#if html5
 		FlxG.autoPause = false;
