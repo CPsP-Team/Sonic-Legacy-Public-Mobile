@@ -440,7 +440,9 @@ class CharacterEditorState extends MusicBeatState
 			daAnim = characterList[Std.parseInt(character)];
 			check_player.checked = daAnim.startsWith('bf');
 			loadChar(!check_player.checked);
+			#if DISCORD_ALLOWED
 			updatePresence();
+			#end
 			reloadCharacterDropDown();
 		});
 		charDropDown.selectedLabel = daAnim;
@@ -810,7 +812,9 @@ class CharacterEditorState extends MusicBeatState
 			if(sender == healthIconInputText) {
 				leHealthIcon.changeIcon(healthIconInputText.text);
 				char.healthIcon = healthIconInputText.text;
+				#if DISCORD_ALLOWED
 				updatePresence();
+				#end
 			}
 			else if(sender == imageInputText) {
 				char.imageFile = imageInputText.text;
@@ -1054,7 +1058,9 @@ class CharacterEditorState extends MusicBeatState
 			positionCameraXStepper.value = char.cameraPosition[0];
 			positionCameraYStepper.value = char.cameraPosition[1];
 			reloadAnimationDropDown();
+			#if DISCORD_ALLOWED
 			updatePresence();
+			#end
 		}
 	}
 
