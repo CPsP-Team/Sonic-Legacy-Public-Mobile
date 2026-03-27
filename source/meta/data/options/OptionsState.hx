@@ -63,7 +63,9 @@ class OptionsState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.music('options'));
 		MainMenuState.fromTitle = false;
 
+    #if DISCORD_ALLOWED
 		DiscordHandler.changePresence("Options Menu", null);
+		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
