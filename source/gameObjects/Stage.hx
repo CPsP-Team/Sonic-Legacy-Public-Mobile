@@ -148,7 +148,9 @@ class Stage extends FlxTypedGroup<FlxBasic>
 						script.call("onLoad", [this, foreground]);
 						// doPush = true;
 						break;
-					} else if (ext == 'lua'){
+					} 
+					#if LUA_ALLOWED
+					else if (ext == 'lua'){
 						var script = new FunkinLua(file);
 						luaArray.push(script);
 						stageScripts.push(script);
@@ -157,6 +159,7 @@ class Stage extends FlxTypedGroup<FlxBasic>
 						// doPush = true;
 						break;
 					}
+					#end
 					else
 
 					if (doPush)
