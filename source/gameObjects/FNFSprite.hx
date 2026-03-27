@@ -175,7 +175,7 @@ class FNFSprite extends FlxSprite
 		var characterPath:String = 'characters/' + character + '.json';
 		var rawJson:Dynamic;
 
-			rawJson = File.getContent(path);
+			rawJson = Assets.getText(path);
 
 		}else{
 			var path:String = Paths.getPreloadPath(characterPath);
