@@ -2,7 +2,7 @@ package meta;
 
 class MacroData
 {
-  #if desktop
+    #if desktop
     public static macro function getDate()
         return macro  $v{Date.now().toString()};
 

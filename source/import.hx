@@ -31,6 +31,7 @@ import meta.backend.ProgressionHandler;
 import meta.data.Conductor;
 import meta.data.CoolUtil;
 import meta.data.Highscore;
+import mobile.backend.Asset2File;
 
 import meta.data.CoolUtil.addShaderToCamera as ApplyShaderToCamera;
 import meta.data.CoolUtil.removeShaderFromCamera as RemoveShaderFromCamera;

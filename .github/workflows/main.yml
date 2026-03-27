@@ -42,7 +42,6 @@ jobs:
           haxelib install tjson
           haxelib install hxjsonast
           haxelib install hxvlc 1.2.0
-          haxelib git linc_luajit https://github.com/ArkoseLabsOfficial/linc_luajit-0.6.3-ex
           haxelib install hscript 2.5.0
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
           haxelib install hxcpp-debug-server
