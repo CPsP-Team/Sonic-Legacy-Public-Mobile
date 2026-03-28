@@ -29,7 +29,7 @@ using StringTools;
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
-	public static var VIDEO_EXTS = "mp4";
+	inline public static var VIDEO_EXTS = "mp4";
 
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
