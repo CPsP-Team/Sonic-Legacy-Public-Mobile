@@ -17,6 +17,9 @@ import meta.data.*;
 import meta.states.*;
 import meta.states.editors.*;
 import gameObjects.*;
+#if MODS_ALLOWED
+import sys.FileSystem;
+#end
 using StringTools;
 
 class FunkinHScript extends FunkinScript
