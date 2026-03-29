@@ -266,7 +266,7 @@ class DesktopOptionsState extends MusicBeatState
 
 		if (!inSubState)
 		{
-			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end && inMain)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end && inMain)
 			{
 				if (!OptionsState.onPlayState)
 				{
