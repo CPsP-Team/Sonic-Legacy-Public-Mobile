@@ -17,6 +17,9 @@ import meta.states.*;
 import meta.data.*;
 import meta.MacroData;
 import meta.backend.FPSCounter;
+#if ios
+import mobile.utils.MobileUtil;
+#end
 
 class Main extends Sprite
 {
