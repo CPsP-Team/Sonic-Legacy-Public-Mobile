@@ -1,4 +1,4 @@
-package mobile.substates;
+package mobile;
 
 import flixel.FlxG;
 import flixel.FlxSprite;

@@ -25,9 +25,9 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import Controls;
-import options.BaseOptionsMenu;
-import options.Option;
+import meta.data.Controls;
+import meta.data.options.BaseOptionsMenu;
+import meta.data.options.Option;
 import openfl.Lib;
 
 using StringTools;

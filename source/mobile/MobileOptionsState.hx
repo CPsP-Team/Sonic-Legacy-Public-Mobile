@@ -1,4 +1,4 @@
-package meta.data.options;
+package mobile;
 
 import flash.text.TextField;
 import flixel.FlxG;
@@ -25,65 +25,32 @@ import meta.data.*;
 import meta.states.*;
 import meta.states.substate.*;
 import gameObjects.*;
+import meta.states.desktop.DesktopOptionsState;
 
 using StringTools;
 
-class OptionsState extends MusicBeatState
+class MobileOptionsState extends MusicBeatState
 {
-	var options:Array<String> = [
-		'Notes',
-		'Controls',
-		'Adjust Delay and Combo',
-		'Graphics',
-		'Visuals and UI',
-		'Gameplay',
-		"Loading"
-	];
+	var options:Array<String> = ['Android Controls Settings', 'Controls'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
-	public static var onPlayState:Bool = false;
 
 	function openSelectedSubstate(label:String)
 	{
 		switch (label)
 		{
-			case 'Notes':
+			case 'Android Controls Settings':
 				#if mobile
 				removeVirtualPad();
 				#end
-				openSubState(new meta.data.options.NoteSettingsSubState());
+				openSubState(new mobile.AndroidSettingsSubState());
 			case 'Controls':
 				#if mobile
 				removeVirtualPad();
 				#end
-				openSubState(new meta.data.options.ControlsSubState());
-			case 'Graphics':
-				#if mobile
-				removeVirtualPad();
-				#end
-				openSubState(new meta.data.options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				#if mobile
-				removeVirtualPad();
-				#end
-				openSubState(new meta.data.options.VisualsUISubState());
-			case 'Gameplay':
-				#if mobile
-				removeVirtualPad();
-				#end
-				openSubState(new meta.data.options.GameplaySettingsSubState());
-			case 'Loading':
-				#if mobile
-				removeVirtualPad();
-				#end
-				openSubState(new meta.data.options.MiscSubState());
-			case 'Adjust Delay and Combo':
-				#if mobile
-				removeVirtualPad();
-				#end
-				LoadingState.loadAndSwitchState(new meta.data.options.NoteOffsetState());
+				openSubState(new mobile.MobileControlsSubState());
 		}
 	}
 
@@ -92,12 +59,10 @@ class OptionsState extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.sound.playMusic(Paths.music('options'));
+		// FlxG.sound.playMusic(Paths.music('options'));
 		MainMenuState.fromTitle = false;
 
-        #if DISCORD_ALLOWED
 		DiscordHandler.changePresence("Options Menu", null);
-		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -127,21 +92,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if mobile
-		addVirtualPad(UP_DOWN, A_B_X_Y);
-		#end
-
-		#if mobile
-		var sus:FlxText = new FlxText(10, 14, 0, 'Press X to customize your android controls', 16);
-		sus.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		sus.borderSize = 2.4;
-		sus.scrollFactor.set();
-		add(sus); // sus??!?!
-
-		var sussy:FlxText = new FlxText(10, 32, 0, 'Press Y to customize opacity for your android controls', 16);
-		sussy.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		sussy.borderSize = 2.4;
-		sussy.scrollFactor.set();
-		add(sussy); // even more sus!
+		addVirtualPad(UP_DOWN, A_B);
 		#end
 
 		super.create();
@@ -157,19 +108,6 @@ class OptionsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		#if mobile
-		if (virtualPad.buttonX.justPressed)
-		{
-			removeVirtualPad();
-			openSubState(new mobile.MobileControlsSubState());
-		}
-		if (virtualPad.buttonY.justPressed)
-		{
-			removeVirtualPad();
-			openSubState(new mobile.AndroidSettingsSubState());
-		}
-		#end
-
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -182,15 +120,7 @@ class OptionsState extends MusicBeatState
 		if (controls.BACK)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (onPlayState)
-			{
-				FlxG.mouse.visible = false;
-				StageData.loadDirectory(PlayState.SONG);
-				MusicBeatState.switchState(new PlayState());
-				FlxG.sound.music.volume = 0;
-			}
-			else
-				MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new DesktopOptionsState());
 		}
 
 		if (controls.ACCEPT)
