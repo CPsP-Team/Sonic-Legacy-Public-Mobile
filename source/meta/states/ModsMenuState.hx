@@ -69,9 +69,10 @@ class ModsMenuState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		WeekData.setDirectoryFromWeek();
 
-
+     #if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordHandler.changePresence("In the Menus", null);
+		#end
 
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
