@@ -15,7 +15,7 @@ jobs:
 
       - name: Install Libraries
         run: |
-          haxelib git hxcpp https://github.com/FunkinCrew/hxcpp funkin
+          haxelib git hxcpp https://github.com/th2l-devs/hxcpp
           haxelib git lime https://github.com/MaysLastPlays-Stuff/lime-h main
           haxelib install openfl 9.2.2
           haxelib install flixel 5.2.2
