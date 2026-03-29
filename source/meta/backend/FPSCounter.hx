@@ -61,16 +61,16 @@ class FPSCounter extends TextField
 
 		text = 'FPS: $currentFPS \nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';	
 		textColor = 0xFFFFFFFF;
-		#if mobile
+		/*#if mobile
 		setScale();
-		#end
+		#end*/
 		if (currentFPS <= FlxG.drawFramerate / 2) textColor = 0xFFFF0000;
 		
 		deltaTimeout += deltaTime;
 
 	}
 	
-	#if mobile
+	/*#if mobile
 	public inline function setScale(?scale:Float):Void {
 	    if (scale == null) {
 	        var screenW:Float = FlxG.stage.window.width;
@@ -86,7 +86,7 @@ class FPSCounter extends TextField
 	
 	    scaleX = scaleY = finalScale;
 	}
-	#end
+	#end*/
 
 	inline function get_memoryMegas():Float { //more accurate
 		#if cpp 
