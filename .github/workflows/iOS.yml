@@ -43,8 +43,8 @@ jobs:
           cd export/release/ios/build/Release-iphoneos/FNFRodentrap.app
           ldid -S../../../FNFRodentrap/FNFRodentrap.entitlements FNFRodentrap
           cd ..
-          mkdir Payload
-          mv FNFRodentrap Payload
+          mkdir -p Payload
+          mv FNFRodentrap Payload/
           zip -r FNFRodentrap.ipa Payload
 
       - name: Uploading artifact (entire build)
