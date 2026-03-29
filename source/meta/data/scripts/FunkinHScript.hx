@@ -470,6 +470,9 @@ class HScriptSubstate extends meta.states.substate.MusicBeatSubstate
 
 		for (filePath in [#if MODS_ALLOWED Paths.modFolders(fileName), Paths.mods(fileName), #end Paths.getPreloadPath(fileName)])
 		{
+			#if MODS_ALLOWED
+			if (!FileSystem.exists(filePath)) continue;
+			#end
 			if (!Assets.exists(filePath)) continue;
 
 			// some shortcuts
