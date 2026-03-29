@@ -47,12 +47,6 @@ class DesktopGraphicsSettings extends DesktopBaseOptions
 		option.onChange = onChangeAntiAliasing; // Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
 
-		var option:DesktopOption = new DesktopOption('Shaders', // Name
-			"If unchecked, disables shaders.\nIt's used for some visual effects, and also CPU intensive for weaker PCs.", // Description
-			'shaders', 'bool',
-			true);
-		addOption(option);
-
 		#if !html5 // Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		var option:DesktopOption = new DesktopOption('Framerate', "Pretty self explanatory, isn't it?", 'framerate', 'int', 60);
 		addOption(option);
