@@ -43,6 +43,13 @@ class Main extends Sprite
 	{
 		super();
 
+	  #if ios
+		Sys.setCwd(MobileUtil.getStorageDirectory());
+		//Put this thing there because other way function won't see setted Cwd -ArkoseLabs
+		/*if (!MobileUtil.areAssetsCopied("assets/"))
+			MobileUtil.copyAssetsFromAPK("assets/");*/
+		#end
+
 		if (stage != null)
 		{
 			init();
