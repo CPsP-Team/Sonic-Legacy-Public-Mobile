@@ -16,6 +16,7 @@ import meta.data.*;
 class ObituaryGameOver extends MusicBeatSubstate
 {
 	public var boyfriend:Boyfriend;
+
 	var camFollow:FlxPoint;
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = false;
@@ -30,13 +31,13 @@ class ObituaryGameOver extends MusicBeatSubstate
 
 	public static var instance:ObituaryGameOver;
 
-	public static function resetVariables() {
+	public static function resetVariables()
+	{
 		characterName = 'bf-dead';
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
 	}
-
 
 	override function create()
 	{
@@ -53,6 +54,11 @@ class ObituaryGameOver extends MusicBeatSubstate
 	{
 		super();
 
+		#if mobile
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera(false);
+		#end
+
 		PlayState.instance.setOnScripts('inGameOver', true);
 
 		Conductor.songPosition = 0;
@@ -62,57 +68,55 @@ class ObituaryGameOver extends MusicBeatSubstate
 		// boyfriend.y += boyfriend.positionArray[1];
 		// add(boyfriend);
 
-		//camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+		// camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
-		(FlxG.sound.play(Paths.sound('obDeath2'))).onComplete = () -> {
+		(FlxG.sound.play(Paths.sound('obDeath2'))).onComplete = () ->
+		{
 			coolStartDeath();
 			var text:Array<Array<String>> = [
-				['This approach','excites me','Shall we go again?'],
-				['A new game to play','with an older face','to greet'],
-				['Nothing like the','first round','Or am I mistaken?']
-		
+				['This approach', 'excites me', 'Shall we go again?'],
+				['A new game to play', 'with an older face', 'to greet'],
+				['Nothing like the', 'first round', 'Or am I mistaken?']
+
 			];
 
-			var theTxt:Int = FlxG.random.int(0,2);
-			for (i in 0...text.length) {
-				var d = new Alphabet(0,0,text[theTxt][i],true,false,0);
+			var theTxt:Int = FlxG.random.int(0, 2);
+			for (i in 0...text.length)
+			{
+				var d = new Alphabet(0, 0, text[theTxt][i], true, false, 0);
 				d.screenCenter();
 				d.y += (100 * (i - (text.length / 2)));
 				add(d);
 			}
-			retry = new Alphabet(0,0,'retry?',true);
+			retry = new Alphabet(0, 0, 'retry?', true);
 			retry.color = FlxColor.YELLOW;
 			retry.screenCenter();
 			retry.y += (100 * (3 - (3 / 2)));
 			add(retry);
 
 			retry.visible = false;
-			new FlxTimer().start(5, Void-> {retry.visible = true;});
-
-
+			new FlxTimer().start(5, Void ->
+			{
+				retry.visible = true;
+			});
 		};
 
-		
-		//Conductor.changeBPM(100);
+		// Conductor.changeBPM(100);
 		// FlxG.camera.followLerp = 1;
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
 		FlxG.camera.zoom = 1;
 
-
-		//boyfriend.playAnim('firstDeath');
+		// boyfriend.playAnim('firstDeath');
 
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
-
-		
-
-
 	}
 
 	var isFollowingAlready:Bool = false;
+
 	override function update(elapsed:Float)
 	{
 		PlayState.instance.callOnScripts('onUpdate', [elapsed]);
@@ -120,12 +124,13 @@ class ObituaryGameOver extends MusicBeatSubstate
 		super.update(elapsed);
 
 		PlayState.instance.callOnScripts('onUpdatePost', [elapsed]);
-		if(updateCamera) {
+		if (updateCamera)
+		{
 			var lerpVal:Float = FlxMath.bound(elapsed * 0.6, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
-		if (controls.ACCEPT && retry?.visible)
+		if (controls.ACCEPT && retry != null && retry.visible)
 		{
 			endBullshit();
 		}
@@ -158,7 +163,7 @@ class ObituaryGameOver extends MusicBeatSubstate
 	{
 		super.beatHit();
 
-		//FlxG.log.add('beat');
+		// FlxG.log.add('beat');
 	}
 
 	var isEnding:Bool = false;
@@ -173,7 +178,7 @@ class ObituaryGameOver extends MusicBeatSubstate
 		if (!isEnding)
 		{
 			isEnding = true;
-			//boyfriend.playAnim('deathConfirm', true);
+			// boyfriend.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music(endSoundName));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)

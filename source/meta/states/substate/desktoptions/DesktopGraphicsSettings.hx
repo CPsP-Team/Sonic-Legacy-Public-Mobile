@@ -25,7 +25,8 @@ import meta.data.Controls;
 import meta.states.*;
 import meta.states.substate.*;
 import meta.data.options.*;
-import gameObjects.*;import openfl.Lib;
+import gameObjects.*;
+import openfl.Lib;
 
 using StringTools;
 
@@ -33,29 +34,27 @@ class DesktopGraphicsSettings extends DesktopBaseOptions
 {
 	public function new()
 	{
-       
-		//I'd suggest using "Low Quality" as an example for making your own option since it is the simplest here
-		var option:DesktopOption = new DesktopOption('Low Quality', //Name
-			'If checked, disables some background details,\ndecreases loading times and improves performance.', //Description
-			'lowQuality', //Save data variable name
-			'bool', //Variable type
-			false); //Default value
+		// I'd suggest using "Low Quality" as an example for making your own option since it is the simplest here
+		var option:DesktopOption = new DesktopOption('Low Quality', // Name
+			'If checked, disables some background details,\ndecreases loading times and improves performance.', // Description
+			'lowQuality', // Save data variable name
+			'bool', // Variable type
+			false); // Default value
 		addOption(option);
 
 		var option:DesktopOption = new DesktopOption('Anti-Aliasing',
-			'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
-			'antialiasing',
-			'bool',
-			true);
-		option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
+			'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.', 'antialiasing', 'bool', true);
+		option.onChange = onChangeAntiAliasing; // Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
 
-		#if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
-		var option:DesktopOption = new DesktopOption('Framerate',
-			"Pretty self explanatory, isn't it?",
-			'framerate',
-			'int',
-			60);
+		var option:DesktopOption = new DesktopOption('Shaders', // Name
+			"If unchecked, disables shaders.\nIt's used for some visual effects, and also CPU intensive for weaker PCs.", // Description
+			'shaders', 'bool',
+			true);
+		addOption(option);
+
+		#if !html5 // Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
+		var option:DesktopOption = new DesktopOption('Framerate', "Pretty self explanatory, isn't it?", 'framerate', 'int', 60);
 		addOption(option);
 
 		option.minValue = 60;
@@ -65,14 +64,14 @@ class DesktopGraphicsSettings extends DesktopBaseOptions
 		#end
 
 		/*
-		var option:Option = new Option('Persistent Cached Data',
-			'If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.',
-			'imagesPersist',
-			'bool',
-			false);
-		option.onChange = onChangePersistentData; //Persistent Cached Data changes FlxGraphic.defaultPersist
-		addOption(option);
-		*/
+			var option:Option = new Option('Persistent Cached Data',
+				'If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.',
+				'imagesPersist',
+				'bool',
+				false);
+			option.onChange = onChangePersistentData; //Persistent Cached Data changes FlxGraphic.defaultPersist
+			addOption(option);
+		 */
 
 		super();
 	}
@@ -81,9 +80,10 @@ class DesktopGraphicsSettings extends DesktopBaseOptions
 	{
 		for (sprite in members)
 		{
-			var sprite:Dynamic = sprite; //Make it check for FlxSprite instead of FlxBasic
-			var sprite:FlxSprite = sprite; //Don't judge me ok
-			if(sprite != null && (sprite is FlxSprite) && !(sprite is FlxText)) {
+			var sprite:Dynamic = sprite; // Make it check for FlxSprite instead of FlxBasic
+			var sprite:FlxSprite = sprite; // Don't judge me ok
+			if (sprite != null && (sprite is FlxSprite) && !(sprite is FlxText))
+			{
 				sprite.antialiasing = ClientPrefs.data.antialiasing;
 			}
 		}
@@ -91,7 +91,7 @@ class DesktopGraphicsSettings extends DesktopBaseOptions
 
 	function onChangeFramerate()
 	{
-		if(ClientPrefs.data.framerate > FlxG.drawFramerate)
+		if (ClientPrefs.data.framerate > FlxG.drawFramerate)
 		{
 			FlxG.updateFramerate = ClientPrefs.data.framerate;
 			FlxG.drawFramerate = ClientPrefs.data.framerate;

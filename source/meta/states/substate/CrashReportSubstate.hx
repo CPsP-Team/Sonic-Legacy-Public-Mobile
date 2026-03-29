@@ -10,24 +10,28 @@ import meta.data.*;
 import meta.states.*;
 import gameObjects.Alphabet;
 
-class CrashReportSubstate extends FlxState {
+class CrashReportSubstate extends FlxState
+{
 	var underText:FlxText;
-    public var error:String;
-    public var errorName:String;
 
-	public function new(prevState:FlxState, error:String, errorName:String):Void {
-        this.error = error;
-        this.errorName = errorName;
-        super();
+	public var error:String;
+	public var errorName:String;
+
+	public function new(prevState:FlxState, error:String, errorName:String):Void
+	{
+		this.error = error;
+		this.errorName = errorName;
+		super();
 	}
 
-    override public function create(){
-        super.create();
+	override public function create()
+	{
+		super.create();
 
-        FlxG.state.persistentUpdate = false;
+		FlxG.state.persistentUpdate = false;
 		FlxG.state.persistentDraw = true;
-		
-        var bg:FlxSprite = new FlxSprite().generateGraphic(FlxG.width, FlxG.height, 0xFF000000);
+
+		var bg:FlxSprite = new FlxSprite().generateGraphic(FlxG.width, FlxG.height, 0xFF000000);
 		bg.scrollFactor.set();
 		bg.alpha = 0;
 		bg.loadGraphic(Paths.image("youre not supposed to be here"));
@@ -49,7 +53,7 @@ class CrashReportSubstate extends FlxState {
 		report.borderSize = 1.5;
 		add(report);
 
-		underText = new FlxText(0, FlxG.height - 64, FlxG.width, "Press SPACE to return to the Menu Screen.");
+		underText = new FlxText(0, FlxG.height - 64, FlxG.width, "Touch to return to the Menu Screen.");
 		underText.setFormat(Paths.font('vcr.ttf'), 24, 0xFFFFFFFF, CENTER, OUTLINE, 0xFF000000);
 		underText.y = FlxG.height - underText.height - 16;
 		underText.borderSize = 1;
@@ -59,13 +63,27 @@ class CrashReportSubstate extends FlxState {
 		FlxTween.tween(bg, {alpha: 0.6}, 0.6, {ease: FlxEase.cubeOut});
 
 		this.camera = FlxG.cameras.list[FlxG.cameras.list.length - 1];
-    }
+	}
 
-	override function update(elapsed:Float):Void {
+	override function update(elapsed:Float):Void
+	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.SPACE){
+		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+
+		#if mobile
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				pressedEnter = true;
+			}
+		}
+		#end
+
+		if (pressedEnter)
+		{
 			ProgressionHandler.loadMainMenuState();
-        }
+		}
 	}
 }

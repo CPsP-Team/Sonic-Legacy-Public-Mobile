@@ -31,29 +31,34 @@ class NoteSettingsSubState extends BaseOptionsMenu
 	public function new()
 	{
 		title = 'Notes';
-		rpcTitle = 'Note Settings Menu'; //for Discord Rich Presence
+		rpcTitle = 'Note Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Note Skin', //Name
-			'Changes how notes look. Quants change colour depending on the beat it\'s at, while vanilla is normal FNF', //Description
-			'noteSkin', //Save data variable name
-			'string', //Variable type
-			'Vanilla',
-			['Vanilla','Quants', 'QuantStep']
-		); //Default value
+		var option:Option = new Option('Note Skin', // Name
+			'Changes how notes look. Quants change colour depending on the beat it\'s at, while vanilla is normal FNF', // Description
+			'noteSkin', // Save data variable name
+			'string', // Variable type
+			'Vanilla', ['Vanilla', 'Quants', 'QuantStep']); // Default value
 		addOption(option);
 
-		var option:Option = new Option('Customize',
-			'Change your note colours\n[Press Enter]',
-			'swapNoteOption',
-			'button',
-			true);
-		option.callback = function(){
-			switch(ClientPrefs.data.noteSkin){
+		var option:Option = new Option('Customize', 'Change your note colours\n[Press A]', 'swapNoteOption', 'button', true);
+		option.callback = function()
+		{
+			switch (ClientPrefs.data.noteSkin)
+			{
 				case 'Quants':
+					#if mobile
+					removeVirtualPad();
+					#end
 					openSubState(new QuantNotesSubState());
 				case 'QuantStep':
+					#if mobile
+					removeVirtualPad();
+					#end
 					openSubState(new QuantNotesSubState());
 				default:
+					#if mobile
+					removeVirtualPad();
+					#end
 					openSubState(new NotesSubState());
 			}
 		}
@@ -61,5 +66,4 @@ class NoteSettingsSubState extends BaseOptionsMenu
 
 		super();
 	}
-
 }
