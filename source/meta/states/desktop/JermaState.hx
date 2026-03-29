@@ -334,10 +334,13 @@ class JermaState extends MusicBeatState
 
 
         init(painful);
-        
+
+    #if ios
+    addVirtualPad(NONE, B);
+    addVirtualPadCamera(false);
+    #end
 
         super.create();
-
     }
 
     function init(painful:Bool = false) 
