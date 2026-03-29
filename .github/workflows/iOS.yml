@@ -17,7 +17,7 @@ jobs:
         run: |
           haxelib git hxcpp https://github.com/th2l-devs/hxcpp
           haxelib git lime https://github.com/th2l-devs/lime main
-          haxelib install openfl 9.2.2
+          haxelib git openfl https://github.com/th2l-devs/openfl
           haxelib install flixel 5.2.2
           haxelib install flixel-tools
           haxelib install flixel-ui 2.6.1
