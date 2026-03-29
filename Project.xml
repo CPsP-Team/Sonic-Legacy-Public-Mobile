@@ -195,7 +195,7 @@
 
 	<section if="ios">
 	  <haxedef name="SHARE_MOBILE_FILES" />
-      <config:ios category_type="public.app-category.music-games" />
+    <config:ios category_type="public.app-category.music-games" />
 	</section>
 
 	<!-- _________________________________ Custom _______________________________ -->
