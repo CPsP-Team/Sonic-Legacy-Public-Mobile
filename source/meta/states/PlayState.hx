@@ -1178,11 +1178,51 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
+		
+		#if mobile
+		var pauseButton = new mobile.backend.PauseButton(0, 0, function()
+		{
+			var ret:Dynamic = callOnScripts('onPause', []);
 
-   #if mobile
-   addMobileControls(false);
-   mobileControls.visible = false;
-   #end
+			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
+			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
+
+			if(ret != Globals.Function_Stop) {
+				
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+
+				PsychVideoSprite.globalPause();
+
+				// 1 / 1000 chance for Gitaroo Man easter egg
+				/*if (FlxG.random.bool(0.1))
+				{
+					// gitaroo man easter egg
+					cancelMusicFadeTween();
+					MusicBeatState.switchState(new GitarooPause());
+				}
+				else {*/
+				if(FlxG.sound.music != null) {
+					FlxG.sound.music.pause();
+					vocals.pause();
+				}
+				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				//}
+
+		        #if DISCORD_ALLOWED
+				DiscordHandler.changePresence(detailsPausedText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
+		        #end
+			}
+		});
+		add(pauseButton);
+		pauseButton.cameras = [camOther];
+		#end
+
+	   #if mobile
+	   addMobileControls(false);
+	   mobileControls.visible = false;
+	   #end
 
 		for (i in [topBar,bottomBar]) i.cameras = [camOther];
 

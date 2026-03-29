@@ -167,10 +167,10 @@ class DesktopSongSelectState extends MusicBeatState
 			staticEffect.alpha = 1;
 		});
 
-    #if ios
-    addVirtualPad(NONE, B);
-    addVirtualPadCamera(false);
-    #end
+	    #if ios
+	    addVirtualPad(NONE, B);
+	    addVirtualPadCamera(false);
+	    #end
 
 		super.create();
 	}
