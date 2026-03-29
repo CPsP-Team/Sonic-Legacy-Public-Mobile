@@ -1,11 +1,11 @@
 package flixel.system;
 
-import flash.events.Event;
-import flash.events.IEventDispatcher;
-import flash.media.Sound;
-import flash.media.SoundChannel;
-import flash.media.SoundTransform;
-import flash.net.URLRequest;
+import openfl.events.Event;
+import openfl.events.IEventDispatcher;
+import openfl.media.Sound;
+import openfl.media.SoundChannel;
+import openfl.media.SoundTransform;
+import openfl.net.URLRequest;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.math.FlxMath;
@@ -14,8 +14,8 @@ import flixel.system.FlxAssets.FlxSoundAsset;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxStringUtil;
 import openfl.Assets;
-#if flash11
-import flash.utils.ByteArray;
+#if openfl11
+import openfl.utils.ByteArray;
 #end
 #if (openfl >= "8.0.0")
 import openfl.utils.AssetType;
@@ -141,18 +141,18 @@ class FlxSound extends FlxBasic
 	public var fadeTween:FlxTween;
 
 	/**
-	 * Internal tracker for a Flash sound object.
+	 * Internal tracker for a openfl sound object.
 	 */
 	@:allow(flixel.system.frontEnds.SoundFrontEnd.load)
 	var _sound:Sound;
 
 	/**
-	 * Internal tracker for a Flash sound channel object.
+	 * Internal tracker for a openfl sound channel object.
 	 */
 	var _channel:SoundChannel;
 
 	/**
-	 * Internal tracker for a Flash sound transform object.
+	 * Internal tracker for a openfl sound transform object.
 	 */
 	var _transform:SoundTransform;
 
@@ -400,7 +400,7 @@ class FlxSound extends FlxBasic
 		return init(Looped, AutoDestroy, OnComplete);
 	}
 
-	#if flash11
+	#if openfl11
 	/**
 	 * One of the main setup functions for sounds, this function loads a sound from a ByteArray.
 	 *
@@ -633,7 +633,7 @@ class FlxSound extends FlxBasic
 	}
 
 	/**
-	 * An internal helper function used to help Flash
+	 * An internal helper function used to help openfl
 	 * clean up finished sounds or restart looped sounds.
 	 */
 	function stopped(?_):Void
@@ -651,7 +651,7 @@ class FlxSound extends FlxBasic
 	}
 
 	/**
-	 * An internal helper function used to help Flash clean up (and potentially re-use) finished sounds.
+	 * An internal helper function used to help openfl clean up (and potentially re-use) finished sounds.
 	 * Will stop the current sound and destroy the associated SoundChannel, plus,
 	 * any other commands ordered by the passed in parameters.
 	 *
