@@ -491,7 +491,11 @@ class Paths
 				if(path == 'songs') folder = 'songs:';
 				sound = OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library));
 			}
-			currentTrackedSounds.set(gottenPath,sound);
+			#if ios
+			currentTrackedSounds.set(sound);
+			#else
+		 currentTrackedSounds.set(gottenPath,sound);
+		 #end
 		}
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
