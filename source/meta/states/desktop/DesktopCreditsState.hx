@@ -265,6 +265,11 @@ class DesktopCreditsState extends MusicBeatState
 			}
 		}
 
+    #if ios
+    addVirtualPad(NONE, B);
+    addVirtualPadCamera(false);
+    #end
+
 		super.create();
 	}
 
@@ -678,7 +683,7 @@ class DesktopCreditsState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			if (buddyListMode)
 			{
