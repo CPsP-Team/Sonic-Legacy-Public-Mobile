@@ -167,12 +167,17 @@ class DesktopSongSelectState extends MusicBeatState
 			staticEffect.alpha = 1;
 		});
 
+    #if ios
+    addVirtualPad(NONE, B);
+    addVirtualPadCamera(false);
+    #end
+
 		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end && !choosingDiff)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end && !choosingDiff)
 		{
 			display.alpha = 0;
 			new FlxTimer().start(1.7, function(start:FlxTimer)
@@ -228,7 +233,7 @@ class DesktopSongSelectState extends MusicBeatState
 	function diffSelectStuff()
 	{
 		// insert stuff here
-		if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end || !canSelect)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end || !canSelect)
 		{
 			choosingDiff = false;
 			diffBG.animation.play("close", true);
