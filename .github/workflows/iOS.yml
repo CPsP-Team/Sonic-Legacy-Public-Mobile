@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   iOS:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -43,8 +43,8 @@ jobs:
           cd export/release/ios/build/Release-iphoneos/FNFRodentrap.app
           ldid -S../../../FNFRodentrap/FNFRodentrap.entitlements FNFRodentrap
           cd ..
-          mkdir -p Payload
-          mv Payload/FNFRodentrap Payload
+          mkdir Payload
+          mv FNFRodentrap.app Payload
           zip -r FNFRodentrap.ipa Payload
 
       - name: Uploading artifact (entire build)

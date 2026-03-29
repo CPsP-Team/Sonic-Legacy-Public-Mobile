@@ -45,7 +45,7 @@
 	
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="DISCORD_ALLOWED" if="desktop" />
-	<define name="MODS_ALLOWED" if="desktop" />
+	<define name="MODS_ALLOWED" if="desktop || ios" />
 	<define name="LUA_ALLOWED" if="desktop || mobile" />
 	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="VIDEOS_ALLOWED" unless="32bits"/>
@@ -53,7 +53,7 @@
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 
 	<define name="FINAL_BUILD"/>
-	<define name="EXE_EMBEDDING"/>
+	<define name="EXE_EMBEDDING" unless="ios"/>
 
     <assets path="mobile" rename="assets/mobile" if="mobile"/>
 	<assets path="assets/embeds/images" rename= "assets/images" embed="true" if="EXE_EMBEDDING"/>
@@ -192,6 +192,11 @@
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
 	<haxedef name="no-deprecation-warnings"/>
+
+	<section if="ios">
+	  <haxedef name="SHARE_MOBILE_FILES" />
+    <config:ios category_type="public.app-category.music-games" />
+	</section>
 
 	<!-- _________________________________ Custom _______________________________ -->
 

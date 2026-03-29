@@ -17,6 +17,9 @@ import meta.states.*;
 import meta.data.*;
 import meta.MacroData;
 import meta.backend.FPSCounter;
+#if ios
+import mobile.utils.MobileUtil;
+#end
 
 class Main extends Sprite
 {
@@ -42,6 +45,13 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+
+	  #if ios
+		Sys.setCwd(MobileUtil.getStorageDirectory());
+		//Put this thing there because other way function won't see setted Cwd -ArkoseLabs
+		if (!MobileUtil.areAssetsCopied("assets/"))
+			MobileUtil.copyAssetsFromAPK("assets/");
+		#end
 
 		if (stage != null)
 		{

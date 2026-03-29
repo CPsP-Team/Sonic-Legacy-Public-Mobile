@@ -491,7 +491,7 @@ class Paths
 				if(path == 'songs') folder = 'songs:';
 				sound = OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library));
 			}
-			currentTrackedSounds.set(gottenPath,sound);
+		 currentTrackedSounds.set(gottenPath,sound);
 		}
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
@@ -499,7 +499,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return 'mods/' + key;
+		return #if ios Sys.getCwd() + #end 'mods/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -511,7 +511,7 @@ class Paths
 	}
 
 	inline static public function modsVideo(key:String) {
-		return modFolders('videos/' + key + '.' + VIDEO_EXTS[0]);
+		return modFolders('videos/' + key + '.' + VIDEO_EXTS);
 	}
 
 	inline static public function modsSounds(path:String, key:String) {
@@ -544,7 +544,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return 'mods/' + key;
+		return #if ios Sys.getCwd() + #end 'mods/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];

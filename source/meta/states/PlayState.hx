@@ -1215,6 +1215,7 @@ class PlayState extends MusicBeatState
 		        #end
 			}
 		});
+		pauseButton.updateHitbox();
 		add(pauseButton);
 		pauseButton.updateHitbox();
 		pauseButton.cameras = [camOther];
@@ -1560,7 +1561,7 @@ class PlayState extends MusicBeatState
 	public function startVideo(name:String):Void {
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
-		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXTS[0]); #else ''; #end
+		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXTS); #else ''; #end
 		#if sys
 		if(FileSystem.exists(fileName)) {
 			foundFile = true;
