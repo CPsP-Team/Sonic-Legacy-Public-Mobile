@@ -44,7 +44,7 @@ jobs:
           ldid -S../../../FNFRodentrap/FNFRodentrap.entitlements FNFRodentrap
           cd ..
           mkdir -p Payload
-          mv FNFRodentrap Payload/
+          mv Payload/FNFRodentrap Payload
           zip -r FNFRodentrap.ipa Payload
 
       - name: Uploading artifact (entire build)
