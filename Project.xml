@@ -55,6 +55,7 @@
 	<define name="FINAL_BUILD"/>
 	<define name="EXE_EMBEDDING"/>
 
+    <assets path="mobile" rename="assets/mobile" if="mobile">
 	<assets path="assets/embeds/images" rename= "assets/images" embed="true" if="EXE_EMBEDDING"/>
 	<assets path="assets/embeds/data" rename= "assets/data" embed="true" if="EXE_EMBEDDING"/>
 	<assets path="assets/embeds/characters" rename= "assets/characters" embed="true" if="EXE_EMBEDDING"/>
