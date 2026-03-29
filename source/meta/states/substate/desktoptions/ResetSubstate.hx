@@ -57,7 +57,7 @@ class ResetSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		#if mobile
+		#if android
 		if (FlxG.android.justReleased.BACK)
 			FlxG.stage.window.textInputEnabled = true;
 		#end
