@@ -40,12 +40,12 @@ jobs:
       - name: Making ipa file
         run: |
           brew install ldid
-          cd export/release/ios/build/Release-iphoneos/FNF Rodentrap.app
-          ldid -S../../../FNF Rodentrap/FNF Rodentrap.entitlements FNF Rodentrap
+          cd export/release/ios/build/Release-iphoneos/FNFRodentrap.app
+          ldid -S../../../FNFRodentrap/FNFRodentrap.entitlements FNFRodentrap
           cd ..
           mkdir Payload
-          mv FNF Rodentrap Payload
-          zip -r FNF Rodentrap.ipa Payload
+          mv FNFRodentrap Payload
+          zip -r FNFRodentrap.ipa Payload
 
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4
