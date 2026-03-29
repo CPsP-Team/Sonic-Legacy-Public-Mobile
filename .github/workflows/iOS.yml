@@ -1,0 +1,53 @@
+name: iOS Build
+on:
+  workflow_dispatch:
+jobs:
+  iOS:
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.7
+
+      - name: Install Libraries
+        run: |
+          haxelib git hxcpp https://github.com/FunkinCrew/hxcpp funkin
+          haxelib git lime https://github.com/MaysLastPlays-Stuff/lime-h main
+          haxelib install openfl 9.2.2
+          haxelib install flixel 5.2.2
+          haxelib install flixel-tools
+          haxelib install flixel-ui 2.6.1
+          haxelib install flixel-addons 2.10.0
+          haxelib install tjson
+          haxelib install hxjsonast
+          haxelib install hxvlc 1.2.0
+          haxelib install hscript 2.5.0
+          haxelib git linc_luajit https://github.com/ArkoseLabsOfficial/linc_luajit-0.6.3-ex
+          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
+          haxelib install hxcpp-debug-server
+          haxelib run lime rebuild hxcpp --quiet
+          haxelib list
+
+      - name: Compile
+        run: haxelib run lime build ios -clean -nosign
+
+      - name: Making ipa file
+        run: |
+          brew install ldid
+          cd export/release/ios/build/Release-iphoneos/FNF Rodentrap.app
+          ldid -S../../../FNF Rodentrap/FNF Rodentrap.entitlements FNF Rodentrap
+          cd ..
+          mkdir Payload
+          mv FNF Rodentrap Payload
+          zip -r FNF Rodentrap.ipa Payload
+
+      - name: Uploading artifact (entire build)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sonic Legacy iOS
+          path: export/release/ios/build/Release-iphoneos/*.ipa
+          
