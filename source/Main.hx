@@ -88,7 +88,7 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		#if (!android && ios)
+		#if !mobile 
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -108,7 +108,7 @@ class Main extends Sprite
 
 
 		ClientPrefs.loadDefaultKeys();
-		#if (desktop || ios)
+		#if desktop
 		addChild(new FNFGame(gameWidth, gameHeight, initialState, #if(flixel < "5.0.0")zoom,#end framerate, framerate, skipSplash, startFullscreen));
 		#else
 		addChild(new FNFGame(1280, 720, InitState, 60, 60, false, false));
