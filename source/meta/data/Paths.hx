@@ -478,7 +478,7 @@ class Paths
 		}
 		#end
 		// I hate this so god damn much
-		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = #if ios Sys.getCwd() + #end getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath)) {
@@ -491,11 +491,7 @@ class Paths
 				if(path == 'songs') folder = 'songs:';
 				sound = OpenFlAssets.getSound(folder + getPath('$path/$key.$SOUND_EXT', SOUND, library));
 			}
-			#if ios
-			currentTrackedSounds.set(sound);
-			#else
 		 currentTrackedSounds.set(gottenPath,sound);
-		 #end
 		}
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
