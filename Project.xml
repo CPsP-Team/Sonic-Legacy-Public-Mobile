@@ -193,6 +193,11 @@
 
 	<haxedef name="no-deprecation-warnings"/>
 
+	<section if="ios">
+	  <haxedef name="SHARE_MOBILE_FILES" />
+      <config:ios category_type="public.app-category.music-games" />
+	</section>
+
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
