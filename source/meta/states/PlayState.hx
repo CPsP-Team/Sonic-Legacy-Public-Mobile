@@ -1178,52 +1178,20 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
-		
-		#if mobile
-		var pauseButton = new mobile.backend.PauseButton(0, 0, function()
-		{
-			var ret:Dynamic = callOnScripts('onPause', []);
-
-			FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if(!tmr.finished) tmr.active = false);
-			FlxTween.globalManager.forEach(function(twn:FlxTween) if(!twn.finished) twn.active = false);
-
-			if(ret != Globals.Function_Stop) {
-				
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-
-				PsychVideoSprite.globalPause();
-
-				// 1 / 1000 chance for Gitaroo Man easter egg
-				/*if (FlxG.random.bool(0.1))
-				{
-					// gitaroo man easter egg
-					cancelMusicFadeTween();
-					MusicBeatState.switchState(new GitarooPause());
-				}
-				else {*/
-				if(FlxG.sound.music != null) {
-					FlxG.sound.music.pause();
-					vocals.pause();
-				}
-				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-				//}
-
-		        #if DISCORD_ALLOWED
-				DiscordHandler.changePresence(detailsPausedText, SONG.song.toLowerCase().replace('-', ' '), iconP2.getCharacter());
-		        #end
-			}
-		});
-		add(pauseButton);
-		pauseButton.scrollFactor.set(0, 0);
-		pauseButton.updateHitbox();
-		pauseButton.cameras = [camOther];
-		#end
 
 	   #if mobile
 	   addMobileControls(false);
 	   mobileControls.visible = false;
+	   #if ios
+	   var x:Float = 0;
+	   var y:Float = 0;
+	   var posX:Float = (x == 0) ? FlxG.width - 130 : x;
+	   var posY:Float = (y == 0) ? 25 : y;
+	   addVirtualPad(NONE, B);
+	   addVirtualPadCamera(false);
+	   virtualPad.x = posX;
+	   virtualPad.y = posY;
+	   #end
 	   #end
 
 		for (i in [topBar,bottomBar]) i.cameras = [camOther];
@@ -2690,7 +2658,7 @@ class PlayState extends MusicBeatState
 		// 	botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		// }
 
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE #if ios virtualPad.buttonB.justPressed #elseif android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnScripts('onPause', []);
 
