@@ -61,7 +61,7 @@ class FPSCounter extends TextField
 
 		text = 'FPS: $currentFPS \nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';	
 		textColor = 0xFFFFFFFF;
-		#if android
+		#if (android && ios)
 		setScale();
 		#end
 		if (currentFPS <= FlxG.drawFramerate / 2) textColor = 0xFFFF0000;
@@ -70,7 +70,7 @@ class FPSCounter extends TextField
 
 	}
 	
-	#if android
+	#if (android && ios)
 	public inline function setScale(?scale:Float):Void {
 	    if (scale == null) {
 	        var screenW:Float = FlxG.stage.window.width;
