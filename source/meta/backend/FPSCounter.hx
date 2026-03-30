@@ -33,6 +33,13 @@ class FPSCounter extends TextField
 		this.x = x;
 		this.y = y;
 
+    #if mobile
+		FlxG.signals.gameResized.add(function(w, h)
+		{
+			setScale(Math.min(openfl.Lib.current.stage.stageWidth / FlxG.width, openfl.Lib.current.stage.stageHeight / FlxG.height));
+		});
+		#end
+
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
@@ -61,29 +68,16 @@ class FPSCounter extends TextField
 
 		text = 'FPS: $currentFPS \nMemory: ${flixel.util.FlxStringUtil.formatBytes(memoryMegas)}';	
 		textColor = 0xFFFFFFFF;
-		#if (android && ios)
-		setScale();
-		#end
 		if (currentFPS <= FlxG.drawFramerate / 2) textColor = 0xFFFF0000;
 		
 		deltaTimeout += deltaTime;
 
 	}
 	
-	#if (android && ios)
+	#if mobile
 	public inline function setScale(?scale:Float):Void {
-	    if (scale == null) {
-	        var screenW:Float = FlxG.stage.window.width;
-	        var screenH:Float = FlxG.stage.window.height;
-	        scale = Math.min(screenW / FlxG.width, screenH / FlxG.height);
-	    }
-	
-	    #if android
-	        var finalScale:Float = (scale > 1) ? scale : 1;
-	    #else
-	        var finalScale:Float = (scale < 1 ? scale : 1);
-	    #end
-	
+			scale ??= Math.min(FlxG.stage.window.width / FlxG.width, FlxG.stage.window.height / FlxG.height);
+		scaleX = scaleY = (scale < 1 ? scale : 1);
 	    scaleX = scaleY = finalScale;
 	}
 	#end
