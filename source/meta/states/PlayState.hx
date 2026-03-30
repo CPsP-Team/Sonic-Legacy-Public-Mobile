@@ -2658,7 +2658,7 @@ class PlayState extends MusicBeatState
 		// 	botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		// }
 
-		if (controls.PAUSE #if ios virtualPad.buttonB.justPressed #elseif android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE #if ios virtualPad.buttonB.justPressed || #else if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnScripts('onPause', []);
 
