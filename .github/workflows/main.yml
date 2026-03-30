@@ -23,7 +23,7 @@ jobs:
           haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h master --quiet
           haxelib git lime https://github.com/MaysLastPlays-Stuff/lime-h main
           haxelib install openfl 9.2.2
-          haxelib install flixel 5.3.0
+          haxelib install flixel 5.2.2
           haxelib install flixel-tools
           haxelib install flixel-ui 2.6.1
           haxelib install flixel-addons 2.10.0
@@ -45,7 +45,7 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
           haxelib run lime config ANDROID_SETUP true
           haxelib set flixel-addons 2.10.0
-          haxelib set flixel 5.3.0
+          haxelib set flixel 5.2.2
           haxelib set openfl 9.2.2
           haxelib set lime 8.0.2
           haxelib set hxvlc 1.2.0
