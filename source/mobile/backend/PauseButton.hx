@@ -15,8 +15,6 @@ class PauseButton extends FlxSprite
 {
 	public var onClick:Void->Void;
 
-	private var _lastTouchId:Int = -1;
-
 	public function new(x:Float = 0, y:Float = 0, ?onClick:Void->Void)
 	{
 		var posX:Float = (x == 0) ? FlxG.width - 130 : x;
@@ -32,6 +30,10 @@ class PauseButton extends FlxSprite
 		{
 			bitmap = BitmapData.fromFile(path);
 		}
+		catch(e:Dynamic)
+		{
+			trace("Error loading pause button image: " + e);
+		}
 
 		if (bitmap != null)
 		{
@@ -44,9 +46,19 @@ class PauseButton extends FlxSprite
 		scale.set(0.8, 0.8);
 		updateHitbox();
 
+		var padding:Float = 50; 
+
+		this.width += padding * 2;
+		this.height += padding * 2;
+		
+		this.offset.set(-padding, -padding);
+
+		this.x -= padding;
+		this.y -= padding;
+
 		this.onClick = onClick;
 		#else
-        trace('PauseButton only Avaliable for Mobile Targets!');
+		trace('PauseButton only Avaliable for Mobile Targets!');
 		visible = false;
 		active = false;
 		#end
