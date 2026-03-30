@@ -78,7 +78,6 @@ class FPSCounter extends TextField
 	public inline function setScale(?scale:Float):Void {
 			scale ??= Math.min(FlxG.stage.window.width / FlxG.width, FlxG.stage.window.height / FlxG.height);
 		scaleX = scaleY = (scale < 1 ? scale : 1);
-	    scaleX = scaleY = finalScale;
 	}
 	#end
 
