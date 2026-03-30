@@ -27,6 +27,9 @@ class LegacyTitleState extends MusicBeatState
 
 	override function create()
 	{
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
 		FlxG.camera.zoom = 0.35;
 		FlxG.mouse.visible = false;
 
