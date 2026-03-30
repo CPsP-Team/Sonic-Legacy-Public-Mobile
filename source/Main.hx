@@ -108,7 +108,7 @@ class Main extends Sprite
 
 
 		ClientPrefs.loadDefaultKeys();
-		#if desktop
+		#if (desktop && mobile)
 		addChild(new FNFGame(gameWidth, gameHeight, initialState, #if(flixel < "5.0.0")zoom,#end framerate, framerate, skipSplash, startFullscreen));
 		#else
 		addChild(new FNFGame(1280, 720, InitState, 60, 60, false, false));
