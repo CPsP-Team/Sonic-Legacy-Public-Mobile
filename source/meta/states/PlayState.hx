@@ -1215,8 +1215,8 @@ class PlayState extends MusicBeatState
 		        #end
 			}
 		});
-		pauseButton.updateHitbox();
 		add(pauseButton);
+		pauseButton.scrollFactor.set(0, 0);
 		pauseButton.updateHitbox();
 		pauseButton.cameras = [camOther];
 		#end
