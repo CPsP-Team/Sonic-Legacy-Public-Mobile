@@ -131,7 +131,7 @@ class OptionsState extends MusicBeatState
 		#end
 
 		#if mobile
-		var sus:FlxText = new FlxText(10, 14, 0, 'Press X to customize your android controls', 16);
+		var sus:FlxText = new FlxText(10, 14, 0, 'Press X to customize your mobile controls', 16);
 		sus.setFormat(Paths.font('vcr.ttf'), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		sus.borderSize = 2.4;
 		sus.scrollFactor.set();
