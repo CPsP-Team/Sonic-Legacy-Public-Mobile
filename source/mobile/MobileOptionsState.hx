@@ -41,7 +41,7 @@ class MobileOptionsState extends MusicBeatState
 	{
 		switch (label)
 		{
-			case 'Android Controls Settings':
+			case 'Mobile Controls Settings':
 				#if mobile
 				removeVirtualPad();
 				#end
